@@ -3,9 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, Award } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function CertificatesSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { ref, isVisible } = useScrollAnimation();
 
   const certificates = [
     { name: "Ultimate Front-End", provider: "Udemy", year: "2024" },
@@ -25,8 +27,8 @@ export default function CertificatesSection() {
   };
 
   return (
-    <section id="certificates" className="py-20 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="certificates" className="py-20 px-6" ref={ref}>
+      <div className={`max-w-4xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-testid="text-certificates-title">
           Certificates & Achievements
         </h2>

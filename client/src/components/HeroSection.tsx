@@ -4,7 +4,12 @@ import profileImage from "@assets/om4.jpg";
 
 export default function HeroSection() {
   const handleDownloadCV = () => {
-    console.log("Download CV triggered");
+    const link = document.createElement("a");
+    link.href = "/om-prajapati-cv.pdf";
+    link.download = "Om_Prajapati_CV.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const scrollToContact = () => {

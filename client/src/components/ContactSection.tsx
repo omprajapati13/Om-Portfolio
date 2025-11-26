@@ -6,18 +6,44 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, Linkedin, Github, Send } from "lucide-react";
 import { SiGithub, SiLinkedin } from "react-icons/si";
+import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function ContactSection() {
+  const { ref, isVisible } = useScrollAnimation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
+  const { toast } = useToast();
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const res = await apiRequest("POST", "/api/contact", data);
+      return res.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: "Message sent!",
+        description: data.message,
+      });
+      setFormData({ name: "", email: "", message: "" });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setFormData({ name: "", email: "", message: "" });
+    contactMutation.mutate(formData);
   };
 
   const contactInfo = [
@@ -48,8 +74,8 @@ export default function ContactSection() {
   ];
 
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="contact" className="py-20 px-6" ref={ref}>
+      <div className={`max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-testid="text-contact-title">
           Get In Touch
         </h2>
@@ -120,9 +146,14 @@ export default function ContactSection() {
                   data-testid="textarea-contact-message"
                 />
               </div>
-              <Button type="submit" className="w-full gap-2" data-testid="button-send-message">
+              <Button 
+                type="submit" 
+                className="w-full gap-2" 
+                disabled={contactMutation.isPending}
+                data-testid="button-send-message"
+              >
                 <Send className="h-4 w-4" />
-                Send Message
+                {contactMutation.isPending ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </Card>

@@ -2,8 +2,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export default function ProjectsSection() {
+  const { ref, isVisible } = useScrollAnimation();
   const projects = [
     {
       title: "Hospital Management System",
@@ -33,8 +35,8 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="py-20 px-6" ref={ref}>
+      <div className={`max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-testid="text-projects-title">
           Featured Projects
         </h2>
@@ -44,7 +46,7 @@ export default function ProjectsSection() {
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="overflow-hidden hover-elevate transition-all duration-300 hover:scale-105 group"
+              className="overflow-hidden hover-elevate active-elevate-2 transition-all duration-300 group"
               data-testid={`card-project-${index}`}
             >
               <div className={`h-48 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>

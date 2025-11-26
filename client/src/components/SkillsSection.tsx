@@ -99,7 +99,7 @@ export default function SkillsSection() {
               <Badge
                 key={index}
                 variant="secondary"
-                className="px-4 py-2 text-sm hover-elevate transition-all duration-300 hover:scale-105"
+                className="px-4 py-2 text-sm hover-elevate active-elevate-2 transition-all duration-300"
                 data-testid={`badge-tech-${index}`}
               >
                 {tech}
