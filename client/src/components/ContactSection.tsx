@@ -63,13 +63,13 @@ export default function ContactSection() {
       icon: SiLinkedin,
       label: "LinkedIn",
       value: "Connect on LinkedIn",
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/in/om-prajapati-29634123a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
     },
     {
       icon: SiGithub,
       label: "GitHub",
       value: "View GitHub Profile",
-      href: "https://github.com",
+      href: "https://github.com/omprajapati13",
     },
   ];
 

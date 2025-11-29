@@ -3,8 +3,8 @@ import { Mail, Heart } from "lucide-react";
 
 export default function Footer() {
   const socialLinks = [
-    { icon: SiGithub, href: "https://github.com", label: "GitHub" },
-    { icon: SiLinkedin, href: "https://linkedin.com", label: "LinkedIn" },
+    { icon: SiGithub, href: "https://github.com/omprajapati13", label: "GitHub" },
+    { icon: SiLinkedin, href: "https://www.linkedin.com/in/om-prajapati-29634123a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app", label: "LinkedIn" },
     { icon: Mail, href: "mailto:omvariya71@gmail.com", label: "Email" },
   ];
 
